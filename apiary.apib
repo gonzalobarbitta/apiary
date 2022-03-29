@@ -1,6 +1,83 @@
-FORMAT: 1A
-
-# GET /
-+ Response 200 (application/json; charset=utf-8)
-
-      {"message1": "Hello World!"}
+openapi: 3.0.1
+info:
+  title: S3 Bucket REST API
+  description: REST API as an Amazon S3 proxy.
+  version: '1.0'
+paths:
+  "/api/v1/files":
+    get:
+      summary: List files
+      parameters:
+      - name: folder
+        in: query
+        description: Subfolder where to get the contents from.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Files"
+        '401':
+          description: Unauthorized
+     
+components:
+  schemas:
+    File:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        lastModified:
+          type: string
+        size:
+          type: integer
+        createdBy:
+          type: string
+          nullable: true
+        updatedBy:
+          type: string
+          nullable: true
+        folder:
+          type: string
+          nullable: true
+        id:
+          type: string
+          nullable: true
+        classification:
+          type: string
+          nullable: true
+        links:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Link"
+          nullable: true
+    Files:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            "$ref": "#/components/schemas/File"
+          nullable: true
+        links:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Link"
+          nullable: true
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          nullable: true
+        rel:
+          type: string
+          nullable: true
+        method:
+          type: string
+          nullable: true
