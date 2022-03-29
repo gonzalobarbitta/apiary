@@ -4,7 +4,7 @@ custom:
   apiaryApiKey: 3f7a300cdb6f3b163a3d6cb13ccb3d41
   apiaryApiName: gonzalobarbitta
 dry-run: null
-hookfiles: null
+hookfiles: hooks.js
 language: nodejs
 require: null
 server: npm start
@@ -31,4 +31,4 @@ hooks-worker-handler-host: 127.0.0.1
 hooks-worker-handler-port: 61321
 config: ./dredd.yml
 blueprint: api-description.yml
-endpoint: 'http://127.0.0.1:3000'
+endpoint: 'http://localhost:5000'
